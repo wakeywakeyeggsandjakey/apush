@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            padding: 5px 0px;
+            color: #440000;
+            background-color: #e9972c;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center vertically */
+    align-items: center; /* Center horizontally */
+    height: 100vh; /* Make body take full viewport height */
+    margin: 0; /* Remove default margin */
+        }
+        h1{
+font-size: 50px;
+text-align: center;
+font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+        }
+        .minor{
+ color: #ee3333;
+ padding: 5px 0px;
+ font-size: 10vh;
+ text-align: center;
+ font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+        }
+        i{
+            font-size: 6vh;
+        }
+        #days {
+ animation: 2s infinite rainbow;
+ padding: 5px 0px;
+ font-size: 50vh;
+ text-align: center;
+ font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+        }
+/* (A) RAINBOW COLOR SEQUENCE */
+@keyframes rainbow {
+  0% { color: red; }
+  20% { color: orange; }
+  40% { color: yellow; }
+  60% { color: green; }
+  80% { color: blue; }
+  100% { color: purple; }
+  
+}
+        </style>
+</head>
+<body>
+    <h1>How long until the APUSH exam?</h1>
+    <div>
+    <span id="days"></span> <i>DAYS</i>
+    </div>
+    <div class="minor">
+    <span id="hours"></span> <i>HOURS</i>
+    <span id="minutes"></span> <i>MINUTES</i>
+    <span id="seconds"></span> <i>SECONDS</i>
+    </div>
+    <marquee id="scrollingtext" scrollamount="10" behavior="scroll" direction="left"></marquee>
+    <script>
+        const width = screen.width; 
+        setInterval(updateCountdown,1000);
+        updateCountdown();
+        setInterval(refreshScrollingText,(1000)*(width/10));
+        refreshScrollingText();
+        function updateCountdown() {
+            let today = new Date();
+            let currentYear = today.getFullYear();
+            let targetDate = new Date(currentYear, 4, 9, 8);
+            
+            if (today > targetDate) {
+                targetDate = new Date(currentYear + 1, 4, 9, 8);
+            }
+
+            let timeDiff = targetDate - today;
+            let daysLeft = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+            let hoursLeft = Math.floor(timeDiff / (1000 * 60 * 60)) % 24;
+            let minutesLeft = Math.floor(timeDiff / (1000 * 60)) % (60);
+            let secondsLeft = Math.floor(timeDiff / (1000)) % (60);
+
+            document.getElementById("days").textContent = daysLeft;
+            document.getElementById("hours").textContent = hoursLeft;
+            document.getElementById("minutes").textContent = minutesLeft;
+            document.getElementById("seconds").textContent = secondsLeft;
+        }
+        function refreshScrollingText() {
+            const texts = [
+                "The APUSH exam starts 9 May 2025, @ 8AM. Get ready!",
+                "Remember to study for the APUSH exam May 9th.",
+                "Don't cram the night before the exam.",
+                "Don't sweat it guys, y'all will definitely pass the test :)",
+                "You only need more than half correct on the AP exam to pass."
+            ];
+            const length = texts.length - 1;
+            var j = Math.round(Math.random()*length);
+            document.getElementById("scrollingtext").textContent = texts[j];
+        }
+    </script>
+</body>
+</html>
